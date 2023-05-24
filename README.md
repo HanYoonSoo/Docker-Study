@@ -57,7 +57,7 @@ docker run -d -p 8080:80 -v C:/users/HanYoonSoo/Desktop/docker:/usr/local/apache
 
 
 
-ubuntu 실행된 상태로 빠져나오기
+ubuntu 실행된 상태로 빠져나오기(백그라운드에 남아있음)
 
 ctrl + p + q
 
