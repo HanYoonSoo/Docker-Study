@@ -6,18 +6,18 @@ docker rm $(docker ps -a -q)
 
 docker rmi -f $(docker images -q)
 
-
+<br><br>
 
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/32aa08ad-b4b1-4cb7-ad04-fff3fc04aabb/Untitled.png)
 
-
+<br><br>
 
 docker run -d —name myubuntu ubuntu - (run: 실행, -d: 백 그라운드, -name: 이름 설정, ubuntu 다운로드와 동시에 실행)
 
 docker run -dit —name myubuntu ubuntu - (-d뒤에 it를 붙임 i는 interaction, t는 터미널 안꺼지고 계속 실행되어 있음)
 
 docker run -dit ubuntu bash도 됨
-
+<br><br>
 
 docker attach (container_id) - (해당 컨테이너에 접속)
 
@@ -25,7 +25,7 @@ docker exec -it (container_id) bash - ( httpd와 같은 서버에 접속하기 �
 
 httpd는 while로 돌고 있어서 안꺼지지만 ubuntu는 os여서 실행할게 없어서 그냥 꺼짐
 
-
+<br><br>
 
 ---
 
@@ -46,7 +46,7 @@ docker exec -it 컨테이너ID bash
 docker run -dit -p 8080:80 httpd - 이렇게 해도 됨
 
 ---
-
+<br><br>
 
 
 Volume 설정
@@ -55,13 +55,13 @@ docker run -d -p 8080:80 -v C:/users/HanYoonSoo/Desktop/docker:/usr/local/apache
 
 (앞에쓴 경로로 /usr/local/… 경로를 할당하는걸로 이해하면 될 듯)
 
-
+<br><br>
 
 ubuntu 실행된 상태로 빠져나오기(백그라운드에 남아있음)
 
 ctrl + p + q
 
-
+<br><br>
 docker hub에 업로드
 
 docker commit 컨테이너ID (도커 허브 이름)/(레포 이름):(태그)
@@ -72,7 +72,7 @@ hub에 올린거 다운받아서 실행
 
 주소 복사한 뒤 docker run -dit hanyoonsoo/vim-ubuntu:1.0 같이 실행
 
-
+<br><br>
 
 docker 파일 만들어서 실행(예시)
 
@@ -90,5 +90,5 @@ docker 파일 만들어서 실행(예시)
     
     docker build -t webserver(image 이름) ./(현재 폴더에서 Dockerfile을 알아서 찾아줌)
     
-
+<br><br>
 파일을 이용하여 index.html을 연동하는 방법은 volume과 달리 직접 연동이되는 것이 아닌 파일만 복사이다.
