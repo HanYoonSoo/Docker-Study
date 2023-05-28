@@ -35,13 +35,16 @@ httpd는 while로 돌고 있어서 안꺼지지만 ubuntu는 os여서 실행할�
 예시코드
 
     docker run -dit ubuntu bash
+    
     docker attach 컨테이너ID
 
 2. while process (httpd)
 예시코드
 
     docker run -d -p 8080:80 httpd
+    
     docker exec -it 컨테이너ID bash
+    
     docker run -dit -p 8080:80 httpd - 이렇게 해도 됨
 
 ---
