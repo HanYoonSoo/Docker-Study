@@ -100,15 +100,15 @@ docker logs 컨테이너ID (해당 컨테이너에서 발생한 모든 로그를
 
 Dockerfile 내용
 
-FROM openjdk:11-jdk-slim // 사용할 시스템(운영체제) 의미
+    FROM openjdk:11-jdk-slim // 사용할 시스템(운영체제) 의미
 
-WORKDIR /app  // 기본으로 설정할 디렉토리를 의미 기타 /bin /sbin 등등 존재
+    WORKDIR /app  // 기본으로 설정할 디렉토리를 설정 기타 /bin /sbin 등등 존재
 
-COPY build/aws-v3-0.0.3.jar ./application.jar // volume과 달리 해당 내용을 목적지로 복사
+    COPY build/aws-v3-0.0.3.jar ./application.jar // volume과 달리 해당 내용을 목적지로 복사
 
-// 실행시 수행할 내용을 의미 -> default
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "application.jar"]
-<br>
-// 옵션을 사용할 때 많이 씀 docker run -dit -p 8080:5000 java-server --server.port=5000
-// 변수처럼 언제든 바꿀 수 있음
-CMD ["--server.port=3000"]
+    // 실행시 수행할 내용을 의미 -> default
+    ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "application.jar"]
+    <br>
+    // 옵션을 사용할 때 많이 씀 docker run -dit -p 8080:5000 java-server --server.port=5000
+    // 변수처럼 언제든 바꿀 수 있음
+    CMD ["--server.port=3000"]
