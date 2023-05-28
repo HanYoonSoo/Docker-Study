@@ -108,7 +108,7 @@ Dockerfile 내용
 
     // 실행시 수행할 내용을 의미 -> default
     ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "application.jar"]
-    <br>
+
     // 옵션을 사용할 때 많이 씀 docker run -dit -p 8080:5000 java-server --server.port=5000
     // 변수처럼 언제든 바꿀 수 있음
     CMD ["--server.port=3000"]
