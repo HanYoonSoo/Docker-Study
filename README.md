@@ -1,119 +1,32 @@
-docker 프로세스 스탑, 프로세스 종료, 이미지 삭제 한 번에 하는 법(linux, Git Bash 이용)
+![image](https://github.com/HanYoonSoo/Docker-Study/assets/114587653/d3662c23-e77b-47c8-9854-bcade3aaf29c)
 
-    docker stop $(docker ps -q)
+# **Docker에 관한 공부기록을 총 정리한 Repository**
 
-    docker rm $(docker ps -a -q)
+### **관련 내용은 블로그에 상세히 기록**
 
-    docker rmi -f $(docker images -q)
+#### **Docker란?**
+<https://hdbstn3055.tistory.com/6>
+<br>
 
-<br><br>
+#### **도커가 배포할 때 필요한 이유**
+<https://hdbstn3055.tistory.com/39>
+<br>
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/32aa08ad-b4b1-4cb7-ad04-fff3fc04aabb/Untitled.png)
+#### **도커 엔진을 구성하는 도커 이미지와 도커 컨테이너**
+<https://hdbstn3055.tistory.com/40>
+<br>
 
-<br><br>
+#### **도커 명령어 모음**
+<https://hdbstn3055.tistory.com/41>
+<br>
 
-    docker run -d —name myubuntu ubuntu - (run: 실행, -d: 백 그라운드, -name: 이름 설정, ubuntu 다운로드와 동시에 실행)
+#### **Dockerfile은 무엇일까?**
+<https://hdbstn3055.tistory.com/42>
+<br>
 
-    docker run -dit —name myubuntu ubuntu - (-d뒤에 it를 붙임 i는 interaction, t는 터미널 안꺼지고 계속 실행되어 있음)
-
-    docker run -dit ubuntu bash도 됨
-<br><br>
-
-    docker attach (container_id) - (해당 컨테이너에 접속)
-
-    docker exec -it (container_id) bash - ( httpd와 같은 서버에 접속하기 위해 exec -it 를 붙여서 bash로 실행) - 실행중인 컨테이너에 커맨드를 변경해서 접속할 수 있음
-
-httpd는 while로 돌고 있어서 안꺼지지만 ubuntu는 os여서 실행할게 없어서 그냥 꺼짐
-
-<br><br>
-
----
-
-웹 서버와 OS 사용
-
-1. os
-예시코드
-
-    docker run -dit ubuntu bash
-    
-    docker attach 컨테이너ID
-
-2. while process (httpd)
-예시코드
-
-    docker run -d -p 8080:80 httpd
-    
-    docker exec -it 컨테이너ID bash
-    
-    docker run -dit -p 8080:80 httpd - 이렇게 해도 됨
-
----
-<br><br>
+#### **도커 컴포즈와 간단한 컴포즈 문법**
+<https://hdbstn3055.tistory.com/43>
+<br>
 
 
-Volume 설정
 
-    docker run -d -p 8080:80 -v C:/users/HanYoonSoo/Desktop/docker:/usr/local/apache2/htdocs httpd
-
-(앞에쓴 경로로 /usr/local/… 경로를 할당하는걸로 이해하면 될 듯)
-
-<br><br>
-
-ubuntu 실행된 상태로 빠져나오기(백그라운드에 남아있음)
-
-ctrl + p + q
-
-<br><br>
-docker hub에 업로드
-
-    docker commit 컨테이너ID (도커 허브 이름)/(레포 이름):(태그)
-
-    docker push (도커 허브 이름)/(레포 이름):(태그)
-
-hub에 올린거 다운받아서 실행
-
-주소 복사한 뒤
-
-    docker run -dit hanyoonsoo/vim-ubuntu:1.0 
-같이 실행
-
-<br><br>
-
-docker 파일 만들어서 실행(예시)
-
-1. Dockerfile이라는 확장자 없는 파일을 만든다.
-    
-    파일 내용(예시)
-    
-        FROM httpd
-    
-        COPY ./docker /usr/local/apache2/htdocs
-    
-        CMD [”httpd-foreground”]
-    
-2. 파일을 이미지로 빌드
-    
-        docker build -t webserver(image 이름) ./(현재 폴더에서 Dockerfile을 알아서 찾아줌)
-    
-<br><br>
-파일을 이용하여 index.html을 연동하는 방법은 volume과 달리 직접 연동이되는 것이 아닌 파일만 복사이다.
-
-<hr>
-Entrypoint와 Workdir
-
-docker logs 컨테이너ID (해당 컨테이너에서 발생한 모든 로그를 볼 수 있음)
-
-Dockerfile 내용
-
-    FROM openjdk:11-jdk-slim // 사용할 시스템(운영체제) 의미
-
-    WORKDIR /app  // 기본으로 설정할 디렉토리를 설정 기타 /bin /sbin 등등 존재
-
-    COPY build/aws-v3-0.0.3.jar ./application.jar // volume과 달리 해당 내용을 목적지로 복사
-
-    // 실행시 수행할 내용을 의미 -> default
-    ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "application.jar"]
-
-    // 옵션을 사용할 때 많이 씀 docker run -dit -p 8080:5000 java-server --server.port=5000
-    // 변수처럼 언제든 바꿀 수 있음
-    CMD ["--server.port=3000"]
